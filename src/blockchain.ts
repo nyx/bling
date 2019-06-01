@@ -83,6 +83,17 @@ export class BlockChain<T> {
         }
     }
 
+    getBlockByHash(hash: string): Block<T> | null {
+        for(let i = 0; i < this.chain.length; i++) {
+            const currentBlock = this.chain[i];
+            if(currentBlock.getHash() == hash) {
+                return currentBlock;
+            }
+        }
+        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+        return null;
+    }
+
     private getNextIndex(): number {
         return this.chain.length;
     }
@@ -91,13 +102,14 @@ export class BlockChain<T> {
         return new Date;
     }
 
-    addData(data: T) {
+    addData(data: T, after: Block<T | null> = null) : Block<T> {
         let block = new Block(
             this.getNextIndex(),
             this.getNextTimestamp(),
             new Data<T>(data),
-            this.getLatestBlock());
+            after || this.getLatestBlock());
         this.chain.push(block);
+        return block;
     }
 
     getBlock(index: number) {
@@ -107,7 +119,7 @@ export class BlockChain<T> {
     isChainValid(): boolean {
         for(let i = 1; i < this.chain.length; i++) {
             const currentBlock = this.chain[i];
-            const previousBlock = this.chain[i-1];
+            const previousBlock = this.getBlockByHash(currentBlock.getPrevious().getHash());
             
             if(currentBlock.getHash() !== currentBlock.computeHash()) {
                 return false;
