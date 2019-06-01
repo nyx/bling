@@ -1,14 +1,14 @@
 import { SHA256 } from "crypto-js";
 
-export class Data {
-    private payload: Uint8Array
+export class Data<T> {
+    private payload: T
     private hash: string = ""
 
-    constructor(payload: Uint8Array) {
+    constructor(payload: T) {
         this.init(payload);
     }
 
-    private init(payload: Uint8Array) {
+    private init(payload: T) {
         this.payload = payload;
         this.hash = this.computeHash();
     }
@@ -17,7 +17,7 @@ export class Data {
         return this.hash = SHA256(this.payload.toString()).toString();
     }
 
-    getPayload(): Uint8Array {
+    getPayload(): T {
         return this.payload;
     }
 
@@ -26,14 +26,14 @@ export class Data {
     }
 }
 
-export class Block {
+export class Block<T> {
     index: number
     timestamp: Date
-    data: Data
-    private previous: Block | null
+    data: Data<T>
+    private previous: Block<T> | null
     private hash: string
 
-    constructor(index: number, timestamp: Date, data: Data, previous: Block | null) {
+    constructor(index: number, timestamp: Date, data: Data<T>, previous: Block<T> | null) {
         this.index = index;
         this.timestamp = timestamp;
         this.data = data;
@@ -54,38 +54,33 @@ export class Block {
             this.data.getHash()).toString();
     }
 
-    getData(): Data {
+    getData(): Data<T> {
         return this.data;
     }
 
     // tamper with the chain - for testing purposes only!
-    setData(data: Data) {
-        this.data = data;
+    setData(payload: T) {
+        this.data = new Data<T>(payload);
     }
 
     getHash(): string {
         return this.hash;
     }
 
-    getPrevious(): Block {
+    getPrevious(): Block<T> {
         return this.previous;
     }
 }
 
-export class BlockChain {
-    private genesisBlock: Block
-    private chain: Block[]
+export class BlockChain<T> {
+    private chain: Block<T>[] = []
 
-    constructor() {
-        this.chain = [BlockChain.createGenesisBlock()];
-    }
-
-    static createGenesisBlock(): Block {
-        return new Block(0, new Date, new Data(new Uint8Array([])), null);
-    }
-
-    getLatestBlock(): Block {
-        return this.chain[this.chain.length -1];
+    getLatestBlock(): Block<T> | null {
+        if(this.chain.length > 0) {
+            return this.chain[this.chain.length -1];
+        } else {
+            return null;
+        }
     }
 
     private getNextIndex(): number {
@@ -96,14 +91,13 @@ export class BlockChain {
         return new Date;
     }
 
-    addData(data: Data): Block {
+    addData(data: T) {
         let block = new Block(
             this.getNextIndex(),
             this.getNextTimestamp(),
-            data,
+            new Data<T>(data),
             this.getLatestBlock());
         this.chain.push(block);
-        return block;
     }
 
     getBlock(index: number) {

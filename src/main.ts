@@ -1,33 +1,19 @@
 import { Data, Block, BlockChain } from "./blockchain";
 
-class Bling extends Data {
-    constructor(value: number) {
-        super(new Uint8Array([value]));
-    }
-}
+//class Bling extends Data<number> {}
+//class BlingChain extends BlockChain<Data<number>> {}
 
-class BlingChain extends BlockChain {
-    constructor() {
-        super()
-    }
-}
+let bling = new BlockChain<number>();
 
-let bling = new BlingChain();
-
-let d1 = new Bling(1);
-let d2 = new Bling(2);
-let d3 = new Bling(3);
-let d4 = new Bling(4);
-
-bling.addData(d1);
-bling.addData(d2);
-bling.addData(d3);
-bling.addData(d4);
+bling.addData(1);
+bling.addData(2);
+bling.addData(3);
+bling.addData(4);
 
 console.log('blockchain valid? : ' + bling.isChainValid());
 
 console.log("tampering...");
 
-bling.getBlock(2).setData(new Data(new Uint8Array([42])));
+bling.getBlock(2).setData(42);
 
 console.log('tampered blockchain valid? : ' + bling.isChainValid());
