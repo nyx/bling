@@ -1,8 +1,5 @@
 import { Data, Block, BlockChain } from "./blockchain";
 
-//class Bling extends Data<number> {}
-//class BlingChain extends BlockChain<Data<number>> {}
-
 let bling = new BlockChain<number>();
 
 bling.addData(1);
