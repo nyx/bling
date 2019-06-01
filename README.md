@@ -28,7 +28,6 @@ The `test` generates a small chain, asserts that is is valid, then mutates the d
 
 In no particular order:
 
- * experiment with TypeScript generics
  * experiment with a functional programming style
  * implement a browser hosted interface
 
