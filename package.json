@@ -4,20 +4,25 @@
   "description": "A basic blockchain written in TypeScript",
   "main": "dist/main.js",
   "scripts": {
+    "dev": "parcel src/index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Andrew Andkjar",
   "repository": "git@github.com:nyx/bling.git",
   "license": "ISC",
   "devDependencies": {
-    "gulp": "^4.0.0",
-    "gulp-typescript": "^5.0.1",
+    "@types/react": "^16.8.19",
+    "@types/react-dom": "^16.8.4",
+    "parcel-bundler": "^1.12.3",
     "typescript": "^3.5.1"
   },
   "dependencies": {
     "@types/crypto-js": "^3.1.43",
+    "blockchain": "^1.0.6",
     "browserify": "^16.2.3",
     "crypto-js": "^3.1.9-1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "ts-node": "^8.2.0",
     "tsify": "^4.0.1",
     "vinyl-source-stream": "^2.0.0"

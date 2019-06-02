@@ -9,19 +9,20 @@ This project is motivated by the desire to better understand the fundamental con
 
 ### Usage
 -----
-This project uses the [Gulp](https://gulpjs.com/) build tool. The default Gulp task entails the `build`, `test`, and `run` tasks
+
+Install dependencies using [NPM](https://www.npmjs.com/)
 
 ```
-gulp
+npm install
 ```
 
-This will produce Javascript files in the `built/local` directory, then you may invoke the test with
+This project uses [Parcel](https://github.com/parcel-bundler/parcel) for building and packaging
 
 ```
-node main.js
+npm run dev
 ```
 
-The `test` generates a small chain, asserts that is is valid, then mutates the data in one block and then asserts that the chain is no longer valid
+This will start a local server you can experiment with automatic reloading in your browser which is wonderful
 
 ### Future
 ----
