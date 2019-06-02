@@ -29,19 +29,19 @@ gulp.task("default", gulp.series("build", "test", "run"));
 
 gulp.task("copy-html", function () {
     return gulp.src(paths.pages)
-        .pipe(gulp.dest("dist"));
+        .pipe(gulp.dest("built/web"));
 });
 
-gulp.task("browser", gulp.series(gulp.parallel('copy-html'), function () {
+gulp.task("web", gulp.series(gulp.parallel('copy-html'), function () {
     return browserify({
         basedir: '.',
         debug: true,
-        entries: ['src/main.ts', 'src/blockchain.ts'],
+        entries: ['src/main.ts', 'src/blockchain.ts', 'src/web.ts'],
         cache: {},
         packageCache: {}
     })
     .plugin(tsify)
     .bundle()
     .pipe(source('bundle.js'))
-    .pipe(gulp.dest("dist"));
+    .pipe(gulp.dest("built/web"));
 }));
