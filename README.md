@@ -16,7 +16,7 @@ Install dependencies using [NPM](https://www.npmjs.com/)
 npm install
 ```
 
-This project uses [Parcel](https://github.com/parcel-bundler/parcel) for building and packaging
+This project uses [Parcel](https://parceljs.org/) for building and packaging
 
 ```
 npm run dev
