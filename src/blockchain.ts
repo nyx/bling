@@ -90,7 +90,6 @@ export class BlockChain<T> {
                 return currentBlock;
             }
         }
-        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         return null;
     }
 
